@@ -1,1 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow">
 
+<title>Daily Rosary Mystery</title>
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: white;
+  }
+
+  /* ✅ Main App Layout */
+  #app {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: white;
+  }
+
+  /* ✅ Scrollable Content Area */
+  #content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  /* ✅ Fixed Bottom Button */
+  #buttonBar {
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    background: white;
+    text-align: center;
+  }
+
+  button {
+    padding: 16px 45px;
+    font-size: 20px;
+    border: none;
+    border-radius: 14px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    width: 90%;
+    max-width: 350px;
+  }
+
+  /* ✅ Final Check Animation */
+  .checkmark {
+    font-size: 90px;
+    text-align: center;
+    margin: 20px 0;
+    animation: pulse 1s infinite alternate;
+  }
+
+  @keyframes pulse {
+    from { transform: scale(1); }
+    to   { transform: scale(1.3); }
+  }
+
+  /* ✅ Lock Screen */
+  #lockScreen {
+    position: fixed;
+    inset: 0;
+    background: black;
+    color: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    z-index: 99999;
+  }
+
+  #lockScreen h1 {
+    font-size: 40px;
+    margin: 0;
+  }
+
+  #lockScreen p {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #ddd;
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ✅ APP -->
+<div id="app">
+  <div id="content"></div>
+
+  <div id="buttonBar">
+    <button id="nextBtn"></button>
+  </div>
+</div>
+
+<!-- ✅ LOCK SCREEN -->
+<div id="lockScreen">
+  <h1>🔒 SITE LOCKED</h1>
+  <p>Unlocks automatically at 12:00 AM</p>
+</div>
+
+<script>
+(function(){
+
+  const content = document.getElementById("content");
+  const nextBtn = document.getElementById("nextBtn");
+  const lockScreen = document.getElementById("lockScreen");
+  const appBox = document.getElementById("app");
+
+  /* ✅ Lock Persistence */
+  
+
+  function showLockScreen() {
+    lockScreen.style.display = "flex";
+    appBox.style.display = "none";
+  }
+
+  
+
+  /* ✅ Pages Content */
+  const pages = [
+
+    /* ✅ PAGE 1 (FULL MALAYALAM CONTENT) */
+    {
+      text: `
+        <h2 style="color:black;font-weight:bold;text-align:center;">
+          പരി. ദൈവമാതാവിനോടുള്ള ജപമാല
+        </h2>
+
+        <h3 style="color:red;text-align:center;">
+          പ്രാരംഭ പ്രാർത്ഥന
+        </h3>
+
+        <p style="text-align:center;">
+          അളവില്ലാത്ത സകല നന്മസ്വരൂപിയായ സർവ്വേശ്വരാ കർത്താവേ, നീചരും നന്ദിഹീനരും
+          പാപികളുമായ അടിയങ്ങൾ അറുതിയില്ലാത്ത മഹിമ പ്രതാപത്തോടു കൂടിയ നിന്റെ സന്നിധിയിൽ
+          പ്രാർത്ഥിക്കുവാൻ അയോഗ്യരാകുന്നു. എങ്കിലും നിന്റെ അളവില്ലാത്ത ദയയിൽ ശരണപ്പെട്ട്,
+          പരിശുദ്ധ ദൈവമാതാവിന്റെ സ്തുതിക്കായി ഈ പ്രാർത്ഥന ചൊല്ലുവാൻ ആഗ്രഹിക്കുന്നു.
+          ഇതു ഭക്തിയോടെ ചൊല്ലി, അന്യചിന്തകൾ കൂടാതെ നിറവേറ്റുവാൻ, കർത്താവേ,
+          സഹായം ചെയ്യണമേ.
+        </p>
+
+        <h3 style="color:red;text-align:center;margin-top:25px;">
+          അപ്പൊസ്തോലന്മാരുടെ വിശ്വാസപ്രമാണം
+        </h3>
+
+        <p style="text-align:center;">
+          ആകാശവും ഭൂമിയും സൃഷ്ടിച്ച സർവ്വശക്തിയുള്ള പിതാവായ ദൈവത്തിൽ ഞാൻ വിശ്വസിക്കുന്നു.
+          തന്റെ ഏകപുത്രനായ ഞങ്ങളുടെ കർത്താവിശോമിശിഹായിലും ഞാൻ വിശ്വസിക്കുന്നു.
+          ഈ പുത്രൻ പരിശുദ്ധാത്മാവിനാൽ ഗർഭസ്ഥനായി, കന്യക മറിയാമ്മിൽനിന്ന് ജനിച്ച്,
+          പൊന്തിയോസ് പീലാത്തോസിന്റെ ദിവസങ്ങളിൽ കഷ്ടതയനുഭവിച്ച്, ക്രൂശിക്കപ്പെട്ട്, മരിച്ച്,
+          അടക്കപ്പെട്ട്, പാതാളത്തിൽ ഇറങ്ങി മരിച്ചവരുടെ ഇടയിൽ നിന്ന് മൂന്നാം നാൾ ഉയിർത്ത്,
+          സ്വർഗ്ഗത്തിൽ കരേറി സർവ്വശക്തനായ പിതാവിന്റെ വലത്തുഭാഗത്ത് ഇരിക്കുന്നുവെന്നും
+          അവിടെനിന്ന് ജീവിക്കുന്നവരേയും മരിച്ചവരേയും വിധിക്കുവാൻ വീണ്ടും വരുമെന്നും ഞാൻ വിശ്വസിക്കുന്നു.
+          പരിശുദ്ധാത്മാവിലും വിശുദ്ധ കത്തോലിക്കാ സഭയിലും പുണ്യവാന്മാരുടെ ഐക്യത്തിലും
+          പാപങ്ങളുടെ മോചനത്തിലും മരിച്ചവരുടെ ഉത്ഥാനത്തിലും നിത്യായുസ്സിലും ഞാൻ വിശ്വസിക്കുന്നു.
+          ആമ്മീൻ.
+        </p>
+
+        <p style="text-align:center;font-weight:bold;margin-top:20px;">
+          1 സ്വ.
+        </p>
+
+        <p style="text-align:center;">
+          പിതാവായ ദൈവത്തിന്റെ പുത്രിയായ പരിശുദ്ധ ദൈവമാതാവേ, ഞങ്ങളിൽ ദൈവവിശ്വാസമെന്ന
+          പുണ്യം ഫലവത്തായിത്തീരുവാൻ നിന്റെ തിരുക്കുമാരനോട് അപേക്ഷിക്കണമേ.
+        </p>
+
+        <p style="text-align:center;font-weight:bold;">1 കൃപ</p>
+
+        <p style="text-align:center;">
+          പുത്രനായ ദൈവത്തിന്റെ മാതാവായ പരിശുദ്ധ ദൈവമാതാവേ, ഞങ്ങളിൽ ദൈവശരണമെന്ന
+          പുണ്യം വർദ്ധിക്കുവാൻ നിന്റെ തിരുക്കുമാരനോട് അപേക്ഷിക്കണമേ.
+        </p>
+
+        <p style="text-align:center;font-weight:bold;">1 കൃപ</p>
+
+        <p style="text-align:center;">
+          പരിശുദ്ധാത്മാവായ ദൈവത്തിന് എത്രയും പ്രിയമുള്ളവളായ പരിശുദ്ധ ദൈവമാതാവേ,
+          ഞങ്ങളിൽ ദൈവസ്നേഹമെന്ന പുണ്യം പ്രബലപ്പെട്ടുവരുവാൻ നിന്റെ തിരുക്കുമാരനോട്
+          അപേക്ഷിക്കണമേ.
+        </p>
+
+        <p style="text-align:center;font-weight:bold;">
+          1 കൃപ. 1 ത്രി .
+        </p>
+      `,
+      btn: "1st Mystery"
+    },
+
+    /* ✅ PAGE 2–8 PLACEHOLDERS */
+    {text: `
+    <h2 style="color:red;text-align:center;">
+      യേശുവിന്റെ മാമ്മോദീസ
+    </h2>
+
+    <p style="text-align:center;font-size:20px;line-height:1.8;">
+      നമ്മുടെ കർത്താവായ യേശുമിശിഹാ യോർദ്ദാൻ നദിയിൽ മാമ്മോദീസ സ്വീകരിച്ചപ്പോൾ പരിശുദ്ധാത്മാവ് അവിടുത്തെമേൽ എഴുന്നെള്ളി വന്നതിനെയും “ഇവൻ എന്റെ പ്രിയപുത്രൻ ഇവനിൽ ഞാൻ പ്രസാ
+ദിച്ചിരിക്കുന്നു” എന്ന് സ്വർഗ്ഗത്തിൽ നിന്ന് അരുളപ്പാടുണ്ടായതിനെയും കുറിച്ച് ധ്യാനിക്കുക.
+    </p>
+
+    <p style="font-weight:bold;color:black;text-align:center;margin-top:25px;">
+      1 സ്വ. 10 കൃപ. 1 ത്രി.
+    </p>
+  `,
+  btn: "2nd Mystery"
+},
+     
+    { text: `<h2 style="color:red;text-align:center;">
+      കാനായിലെ അത്ഭുതം
+    </h2>
+
+    <p style="text-align:center;font-size:20px;line-height:1.8;">
+      നമ്മുടെ കർത്താവായ യേശുമിശിഹാ കാനായിലെ കല്യാണ വിരുന്നിൽ വച്ച് തന്റെ അമ്മയായ പരിശുദ്ധ കന്യകമറിയത്തിന്റെ അപേക്ഷ സ്വീകരിച്ച് അത്ഭുതകരമായി വെള്ളം
+ വീഞ്ഞാക്കി തന്റെ മഹത്ത്വം വെളിപ്പെടുത്തിയതിനെക്കുറിച്ച് ധ്യാനിക്കുക. </p>
+
+    <p style="font-weight:bold;color:black;text-align:center;margin-top:25px;">
+      1 സ്വ. 10 കൃപ. 1 ത്രി.
+    </p>
+  `, btn: "3rd Mystery" },
+    {text: `
+    <h2 style="color:red;text-align:center;">
+      ദൈവരാജ്യ പ്രഖ്യാപനം
+    </h2>
+
+    <p style="text-align:center;font-size:20px;line-height:1.8;">
+ നമ്മുടെ കർത്താവായ യേശുമിശിഹാ ദൈവരാജ്യത്തിന്റെ ആഗമനം അറിയിച്ചുകൊണ്ട് അനുതപിച്ച് സുവി
+ശേഷത്തിൽ വിശ്വസിക്കുവാൻ ആഹ്വാനം ചെയ്തതിനെക്കുറിച്ച് ധ്യാനിക്കുക.</p>
+
+    <p style="font-weight:bold;color:black;text-align:center;margin-top:25px;">
+      1 സ്വ. 10 കൃപ. 1 ത്രി.
+    </p>`, btn: "4th Mystery" },
+    {text: `
+    <h2 style="color:red;text-align:center;">
+      യേശുവിന്റെ രൂപാന്തരീകരണം
+    </h2>
+
+    <p style="text-align:center;font-size:20px;line-height:1.8;">
+      നമ്മുടെ കർത്താവായ യേശുമിശിഹാ താബോർമലയിൽ പ്രാർത്ഥിച്ചുകൊണ്ടിരുന്നപ്പോൾ രൂപാന്തരപ്പെട്ടതിനെയും “ഇവൻ എന്റെ പ്രിയ പുത്രനാകുന്നു,ഇവനെ നിങ്ങൾ ശ്രവിക്കുവിൻ” എന്ന സ്വർഗ്ഗീയ അരു
+ഉപ്പാട് ഉണ്ടായതിനെയും കുറിച്ച് ധ്യാനിക്കുക.
+    </p>
+
+    <p style="font-weight:bold;color:black;text-align:center;margin-top:25px;">
+      1 സ്വ. 10 കൃപ. 1 ത്രി.
+    </p>`, btn: "5th Mystery" },
+    {text: `
+    <h2 style="color:red;text-align:center;">
+      പരിശുദ്ധ കുർബാന സ്ഥാപനം
+    </h2>
+
+    <p style="text-align:center;font-size:20px;line-height:1.8;">
+      നമ്മുടെ കർത്താവായ യേശുമിശിഹാ അന്ത്യ അത്താഴവേളയിൽ നമ്മോടുള്ള സ്നേഹത്തിന്റെ ഉടമ്പടിയായി തന്റെ ശരീരരക്തങ്ങൾ പങ്കുവച്ച് 
+നൽകുന്ന പരിശുദ്ധ കുർബാന സ്ഥാപിച്ചതിനെക്കുറിച്ച് ധ്യാനിക്കുക.</p>
+
+    <p style="font-weight:bold;color:black;text-align:center;margin-top:25px;">
+      1 സ്വ. 10 കൃപ. 1 ത്രി.
+    </p>`, btn: "Continue" },
+    {text: `
+    <h2 style="color:red;text-align:center;">
+      സമർപ്പണം
+    </h2>
+
+    <p style="text-align:center;font-size:20px;line-height:1.8;">
+      മുഖ്യദൂതന്മാരായ വി. മിഖായേലേ, വി. ഗ്രബിയേലേ, വി. റപ്പായേലേ, ശ്ലീഹന്മാരായ മാർ പത്രോസേ, മാർ പൗലോസേ, മാർ യോഹന്നാനേ, ഞങ്ങളുടെപിതാവായ മാർ തോമ്മാ, മഹാപാപികളായ ഞങ്ങൾ നിവർത്തിച്ച ഈ പ്രാർത്ഥനയെ നിങ്ങളുടെ
+സ്തുതികളോടുകൂടെ ഒരുമിച്ച് ചേർത്ത് , പരിശുദ്ധദൈവമാതാവിന്റെ തൃപ്പാദത്തിങ്കൽ കാണിക്കയായി
+സമർപ്പിക്കുവാൻ നിങ്ങളോടു ഞങ്ങൾ പ്രാർത്ഥിക്കുന്നു.
+<h2 style="color:red;text-align:center;">
+പരിശുദ്ധ ദൈവമാതാവിനോടുള്ള
+ലുത്തിനിയാ
+  </h2>
+  <p style="text-align:center;font-size:20px;line-height:1.8;">
+കർത്താവേ! അനുഗ്രഹിക്കണമേ.
+മിശിഹായേ! അനുഗ്രഹിക്കണമേ.
+കർത്താവേ! അനുഗ്രഹിക്കണമേ.
+മിശിഹായേ, ഞങ്ങളുടെ പ്രാർത്ഥന കേൾക്കണമേ.
+മിശിഹായേ ഞങ്ങളുടെ പ്രാർത്ഥന കൈക്കൊള്ളണമേ.
+</p>
+<div style="text-align:center;font-size:20px;line-height:1.9;color:black;">
+
+      <p>
+        സ്വർഗ്ഗസ്ഥ പിതാവായ ദൈവമേ!....
+        <span style="color:darkred;font-weight:bold;">
+          ഞങ്ങളെ അനുഗ്രഹിക്കണമേ
+        </span>
+      </p>
+
+      <p>ലോകരക്ഷിതാവായ ദൈവപുത്രാ!</p>
+      <p>പരിശുദ്ധാത്മാവായ ദൈവമേ!</p>
+      <p>ഏകദൈവമായ പരിശുദ്ധ ത്രിത്വമേ!</p>
+
+      <p>
+        പരിശുദ്ധ മറിയമേ!.....
+        <span style="color:darkred;font-weight:bold;">
+          ഞങ്ങൾക്കുവേണ്ടി അപേക്ഷിക്കേണമേ
+        </span>
+      </p>
+
+      <!-- ✅ Marian Titles All Black Default -->
+      <p>തമ്പുരാന്റെ പുണ്യജനനിയേ!....</p>
+      <p>കന്യകൾക്കു മകുടമാകുന്ന നിർമ്മല കന്യകയേ!....</p>
+      <p>മിശിഹായുടെ മാതാവേ!....</p>
+      <p>വരപ്രസാദത്തിന്റെ മാതാവേ!....</p>
+      <p>എത്രയും പരിശുദ്ധയായ മാതാവേ!...</p>
+      <p>അത്യന്ത വിരക്തയായ മാതാവേ!....</p>
+      <p>കന്യത്വത്തിനു ഭംഗം വരാത്ത മാതാവേ!....</p>
+      <p>സ്നേഹഭാജനമായ മാതാവേ!...</p>
+      <p>അത്ഭുതത്തിനു വിഷയമായ മാതാവേ!...</p>
+      <p>സദുപദേശത്തിന്റെ മാതാവേ!...</p>
+      <p>സ്രഷ്ടാവിന്റെ മാതാവേ!....</p>
+      <p>രക്ഷിതാവിന്റെ മാതാവേ!....</p>
+      <p>തിരുസഭയുടെ മാതാവേ!...</p>
+      <p>എത്രയും വിവേകമുള്ള കന്യകയേ!....</p>
+      <p>അതീവ സ്തുതിക്കു യോഗ്യയായ കന്യകയേ!...</p>
+      <p>വല്ലഭയായ കന്യകയേ!....</p>
+      <p>കരുണയുള്ള കന്യകയേ!....</p>
+      <p>വിശ്വസ്തയായ കന്യകയേ!....</p>
+      <p>നീതിയുടെ ദർപ്പണമേ!...</p>
+      <p>ബോധജ്ഞാനത്തിന്റെ സിംഹാസനമേ!....</p>
+      <p>ഞങ്ങളുടെ ആനന്ദത്തിന്റെ കാരണമേ!....</p>
+      <p>ആദ്ധ്യാത്മിക പാത്രമേ!....</p>
+      <p>ബഹുമാനത്തിന്റെ പാത്രമേ!....</p>
+      <p>അസാമാന്യഭക്തിയുടെ പാത്രമേ!....</p>
+      <p>ദിവ്യരഹസ്യം നിറഞ്ഞ പനിനീർ പുഷ്പമേ!....</p>
+      <p>ദാവീദിന്റെ കോട്ടയേ!....</p>
+      <p>നിർമ്മലദന്തം കൊണ്ടുള്ള കോട്ടയേ!...</p>
+      <p>സ്വർണ്ണാലയമേ!...</p>
+      <p>വാഗ്ദാനത്തിന്റെ പെട്ടകമേ!....</p>
+      <p>സ്വർഗ്ഗരാജ്യത്തിന്റെ വാതിലേ!...</p>
+      <p>ഉദയകാലത്തിലെ നക്ഷത്രമേ!....</p>
+      <p>രോഗികളുടെ സ്വസ്ഥതയേ!....</p>
+      <p>പാപികളുടെ സങ്കേതമേ!...</p>
+      <p>ദുഃഖിതരുടെ ആശ്വാസമേ!....</p>
+      <p>ക്രിസ്ത്യാനികളുടെ സഹായമേ!....</p>
+      <p>മാലാഖമാരുടെ രാജ്ഞി!....</p>
+      <p>പൂർവ്വപിതാക്കന്മാരുടെ രാജ്ഞി!... </p>
+      <p>ദീർഘദർശികളുടെ രാജ്ഞി!... </p>
+      <p>സഹദേന്മാരുടെ രാജ്ഞി!... </p>
+      <p>മൗദിയാനന്മാരുടേയും രാജ്ഞി!... </p>
+      <p>കന്യകകളുടെ രാജ്ഞി!....</p>
+      <p>സകല വിശുദ്ധന്മാരുടെയും രാജ്ഞി!....</p>
+      <p>സ്വർഗാരോപിതയായ രാജ്ഞി!....</p>
+      <p>പരിശുദ്ധ ജപമാലയുടെ രാജ്ഞി!.....</p>
+      <p>സമാധാനത്തിന്റെ രാജ്ഞി!....</p>
+
+      <!-- ✅ Final Three Lamb Lines -->
+      <p>ഭൂലോക പാപങ്ങൾ നീക്കുന്ന ദൈവകുഞ്ഞാടായ യേശുതമ്പുരാനേ!....</p>
+      <p style="color:darkred;font-weight:bold;">
+        കർത്താവേ, ഞങ്ങളുടെ പാപങ്ങൾ ക്ഷമിക്കണമേ
+      </p>
+
+      <p>ഭൂലോക പാപങ്ങൾ നീക്കുന്ന ദൈവകുഞ്ഞാടായ യേശുതമ്പുരാനേ!....</p>
+      <p style="color:darkred;font-weight:bold;">
+        കർത്താവേ, ഞങ്ങളുടെ പ്രാർത്ഥന കേൾക്കണമേ
+      </p>
+
+      <p>ഭൂലോക പാപങ്ങൾ നീക്കുന്ന ദൈവകുഞ്ഞാടായ യേശുതമ്പുരാനേ!....</p>
+      <p style="color:darkred;font-weight:bold;color:blue;">
+        കർത്താവേ, ഞങ്ങളെ അനുഗ്രഹിക്കണമേ
+      </p>
+
+<!-- ✅ Next Prayer Paragraph (Default Black) -->
+      <p>
+        സർവ്വേശ്വരന്റെ പരിശുദ്ധ മാതാവേ, ഇതാ നിന്റെ പക്കൽ ഞങ്ങൾ അഭയം പ്രാപിക്കുന്നു.ഞങ്ങളുടെ ആവശ്യനേരത്തു ഞങ്ങളുടെ യാചനകൾ നീ നിരസിക്കരുതേ. ഭാഗ്യവതിയും
+ അനുഗ്രഹീതയുമായ കന്യകയേ, സകല ആപത്തുകളിൽ നിന്നും എപ്പോഴും ഞങ്ങളെ  കാത്തുകൊള്ളണമേ.
+      </p>
+
+      <!-- ✅ Blue Line -->
+      <p style="color:blue;font-weight:bold;">
+        തലവൻ : യേശുമിശിഹായുടെ വാഗ്ദാനങ്ങൾക്ക് ഞങ്ങൾ യോഗ്യരാകുവാൻ,
+      </p>
+
+      <!-- ✅ Dark Red Line -->
+      <p style="color:darkred;font-weight:bold;">
+        പ്രതിവാക്യം : സർവ്വേശ്വരന്റെ പരിശുദ്ധ മാതാവേ, ഞങ്ങൾക്കുവേണ്ടി അപേക്ഷിക്കണമേ.
+      </p>
+    </div>`, btn: "Last Page" },
+ {text: `
+    <h2 style="color:red;text-align:center;">
+      നമുക്ക് പ്രാർത്ഥിക്കാം
+    </h2>
+
+    <p style="text-align:center;font-size:20px;line-height:1.8;">
+    കർത്താവേ, പൂർണ്ണഹൃദയത്തോടുകൂടെ സാഷ്ടാംഗപ്രണാമം ചെയ്യുന്ന ഞങ്ങളെ ഈ കുടുംബത്തെ കടാക്ഷിച്ച് നിത്യവും കന്യകയായിരിക്കുന്ന മർത്തമറിയാമിന്റെ അപേക്ഷയാൽ സകല ശത്രുക്കളുടെ ഉപദ്രവത്തിൽനിന്നും സംരക്ഷിച്ചുകൊള്ളണമേ. ആമ്മീൻ.
+    </p> 
+
+
+
+    <p style="text-align:center;font-size:20px;line-height:1.8;">
+    സ്വർഗ്ഗരാജ്ഞി, കരുണയുടെ മാതാവേ, നിനക്കു സ്വസ്തി, ഞങ്ങളുടെ ജീവനും മാധുര്യവും ശരണവുമേ, നിനക്കു സ്വസ്തി. പ്രവാസികളും ഹവ്വായുടെ മക്കളുമായ ഞങ്ങൾ കണ്ണുനീരിന്റെ താഴ്വരയായ ഈ ലോകത്തിൽനിന്നു നിന്നെ വിളിക്കുന്നു. കരഞ്ഞു പ്രലപിച്ചുകൊണ്ട് നിന്റെ പക്കൽ ദീർഘനിശ്വാസം ചെയ്യുന്നു. ആകയാൽ ഞങ്ങളുടെ മദ്ധ്യസ്ഥയായ അമ്മേ,
+നിന്റെ കരുണയുള്ള തൃക്കണ്ണുകളെ ഞങ്ങളുടെ നേരെ തിരിക്കണമേ. ഹാ കൃപയും, സ്നേഹവും, മാധുര്യവും
+നിറഞ്ഞ കന്യക മറിയമേ, നിന്റെ തിരുവുദരത്തിന്റെ അനുഗ്രഹീതഫലമായ യേശുമിശിഹായെ ഈ പ്രവാസ ജീവിതത്തിനുശേഷം ഞങ്ങൾക്കു നീ കാണിക്കണമേ. ആമ്മീൻ.
+    </p> 
+
+<h2 style="color:red;text-align:center;">
+      നമുക്ക് പ്രാർത്ഥിക്കാം
+    </h2>
+<p style="text-align:center;font-size:20px;line-height:1.8;">
+    സർവ്വശക്തനും നിത്യനുമായ സർവ്വേശ്വരാ, ഭാഗ്യവതിയായ മറിയാമിന്റെ ആത്മാവും ശരീരവും പരിശുദ്ധാത്മാവിന്റെ അനുഗ്രഹത്താൽ നിന്റെ ദിവ്യപുത്രന്യോഗ്യമായ ആലയമായിരിക്കുവാൻ പൂർവ്വികമായി നീ നിശ്ചയിച്ചുവല്ലോ. ഈ ദിവ്യമാതാവിൽ സന്തോഷിക്കുന്ന ഞങ്ങൾ ഇവളുടെ അനുഗ്രഹദായകമായ അപേക്ഷയാൽ ഈ ലോകത്തിലെ സകല ആപത്തുക
+ളിൽനിന്നും നിത്യമരണത്തിൽനിന്നും രക്ഷ പ്രാപിക്കുവാൻ കൃപ ചെയ്യണമേ. ഈ യാചനകളൊക്കെയും ഞങ്ങളുടെ കർത്താവേശുമിശിഹായെ പ്രതി ഞങ്ങൾക്ക് തന്നരുളണമേ. ആമ്മീൻ.
+    </p>
+<h2 style="color:red;text-align:center;">
+      "എത്രയും ദയയുള്ള മാതാവേ' എന്ന
+പ്രാർത്ഥന"
+    </h2>
+<p style="text-align:center;font-size:20px;line-height:1.8;">
+    എത്രയും ദയയുള്ള മാതാവേ, നിന്റെ സങ്കേതത്തിൽ ഓടിവന്ന്, നിന്റെ സഹായം അപേക്ഷിച്ച് നിന്റെ മാദ്ധ്യസ്ഥം യാചിച്ചവരിൽ ഒരുവനെയെങ്കിലും നീ ഉപേക്ഷിച്ചതായി ലോകത്തിൽ കേട്ടിട്ടില്ലെന്ന് ഓർക്കണമേ . കന്യകകളുടെ രാജ്ഞി ദയയുള്ള മാതാവേ ഇപ്രകാരമുള്ള വിശ്വാസത്താൽ ധൈര്യം പ്രാപിച്ച് നിൻ്റെ തൃപ്പാദത്തിങ്കൽ ഞാൻ അടുത്ത് വരുന്നു. പാപിയായ ഞാൻ നെടുവീർപ്പോടും കണ്ണീരോടും നിൻ്റെ ദയാധികൃത്തെ പ്രതീക്ഷിച്ചുകൊണ്ട് നിൻ്റെ സന്നിധിയിൽ നിൽക്കുന്നു. അവതരിച്ച വചനത്തിന്റെ മാതാവേ എൻ്റെ അപേക്ഷയെ നിരസിക്കാതെ ദയാപൂർവ്വം കേട്ടാരുള്ളണമേ. ആമേൻ 
+</p> `,btn: "Finish" }
+  ];
+
+  let currentPage = 0;
+
+  /* ✅ Render Page */
+  function renderPage() {
+    content.scrollTop = 0;
+    content.innerHTML = pages[currentPage].text;
+    nextBtn.innerText = pages[currentPage].btn;
+    nextBtn.onclick = nextPage;
+  }
+
+  /* ✅ Next Page */
+  function nextPage() {
+    currentPage++;
+
+    if (currentPage < pages.length) {
+      renderPage();
+    } else {
+      showFinalPage();
+    }
+  }
+
+  /* ✅ Final Congratulations Page */
+  function showFinalPage() {
+
+  content.innerHTML = `
+    <h1 style="text-align:center;">🎉 Congratulations Aleena!</h1>
+    <p style="text-align:center;">
+      You've completed today's rosary successfully.
+    </p>
+
+    <div class="checkmark">✔</div>
+
+    <p style="color:green;font-weight:bold;text-align:center;">
+      Redirecting to Points Page in 3 seconds...
+    </p>
+  `;
+
+  nextBtn.style.display = "none";
+
+  // ✅ Redirect to Blogger Points Page
+  setTimeout(() => {
+    window.location.href =
+      "https://sinland-access.blogspot.com/p/your-rosary-points-0-next-goal-500.html";
+  }, 3000);
+}
+    
+  
+
+  /* ✅ Start */
+  renderPage();
+
+})();
+</script>
+
+</body>
+</html>
