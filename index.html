@@ -89,6 +89,80 @@
     margin-top: 10px;
     color: #ddd;
   }
+  /* ✅ FULLSCREEN POINTS POPUP */
+#pointsPopup{
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 999999;
+  overflow-y: auto;
+}
+
+/* ✅ POPUP DESIGN */
+.pointsApp {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.pointsCircle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pop 0.8s ease;
+}
+
+.pointsCircle span {
+  font-size: 45px;
+  font-weight: bold;
+  color: white;
+}
+
+.progressWrap {
+  width: 90%;
+  max-width: 350px;
+  height: 16px;
+  background: #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+#progressBar {
+  height: 100%;
+  width: 0%;
+  background: green;
+  transition: width 1.5s ease;
+}
+
+#todayMsg {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: green;
+}
+
+#goalText {
+  font-size: 17px;
+  margin-top: 12px;
+}
+
+#giftBox {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: purple;
+}
 </style>
 </head>
 
@@ -108,7 +182,37 @@
   <h1>🔒 SITE LOCKED</h1>
   <p>Unlocks automatically at 12:00 AM</p>
 </div>
+<!-- ✅ FULL POINTS POPUP OVERLAY -->
+<div id="pointsPopup" style="display:none;">
 
+  <div class="pointsApp">
+
+    <h1>⭐ Your Rosary Points</h1>
+
+    <div id="todayMsg"></div>
+
+    <!-- Animated Points Circle -->
+    <div class="pointsCircle">
+      <span id="pointsNumber">0</span>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progressWrap">
+      <div id="progressBar"></div>
+    </div>
+
+    <p id="goalText"></p>
+
+    <!-- Gift Message -->
+    <div id="giftBox"></div>
+
+    <p style="margin-top:15px;color:green;font-weight:bold;">
+      Returning Home in 5 seconds...
+    </p>
+
+  </div>
+
+</div>
 <script>
 (function(){
 
@@ -436,7 +540,115 @@
       showFinalPage();
     }
   }
+/* ✅ WHATSAPP NUMBER */
+const WHATSAPP_NUMBER = "916384300784";
 
+/* ✅ Today Key */
+function getTodayKey() {
+  let d = new Date();
+  return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+}
+
+/* ✅ Get Stored Points */
+function getPoints() {
+  return parseInt(localStorage.getItem("totalPoints") || "0");
+}
+
+/* ✅ Add +5 Once Per Day */
+function addPointsOnVisit() {
+
+  let today = getTodayKey();
+  let lastVisit = localStorage.getItem("lastPointsVisit");
+
+  if(lastVisit === today){
+    return { added:false, total:getPoints() };
+  }
+
+  let updated = getPoints() + 5;
+  localStorage.setItem("totalPoints", updated);
+  localStorage.setItem("lastPointsVisit", today);
+
+  return { added:true, total:updated };
+}
+
+/* ✅ Animate Points Counter */
+function animatePoints(target) {
+  let num = 0;
+  let speed = target > 300 ? 5 : 15;
+
+  let interval = setInterval(() => {
+    num++;
+    document.getElementById("pointsNumber").innerText = num;
+    if(num >= target) clearInterval(interval);
+  }, speed);
+}
+
+/* ✅ SHOW FULL POINTS POPUP */
+function showPointsPopup(){
+
+  document.getElementById("pointsPopup").style.display="block";
+
+  let result = addPointsOnVisit();
+
+  document.getElementById("todayMsg").innerText =
+    result.added
+      ? "✅ You received +5 points today!"
+      : "⚠️ Points already collected today.";
+
+  animatePoints(result.total);
+
+  /* ✅ Milestones Forever (500 gap) */
+  let milestone = Math.floor(result.total / 500) * 500;
+  let nextGoal = milestone + 500;
+
+  document.getElementById("goalText").innerText =
+    "Next Goal: " + nextGoal + " Points 🎁";
+
+  let percent = Math.min((result.total / nextGoal) * 100, 100);
+
+  setTimeout(()=>{
+    document.getElementById("progressBar").style.width = percent + "%";
+  },300);
+
+  document.getElementById("giftBox").innerHTML =
+    "Keep going! Reward unlocks at <b>" + nextGoal + "</b> points 🎁";
+
+  /* ✅ WhatsApp Redirect ONCE per milestone */
+  if(milestone >= 500){
+
+    let lastMilestone =
+      parseInt(localStorage.getItem("lastMilestoneReached") || "0");
+
+    if(milestone > lastMilestone){
+
+      localStorage.setItem("lastMilestoneReached", milestone);
+
+      document.getElementById("giftBox").innerHTML =
+        "🎉 Gift Unlocked at <b>" + milestone +
+        "</b> Points! Redirecting to WhatsApp...";
+
+      let msg =
+        "🎉 Rosary Milestone Completed!\n\n" +
+        "✅ Total Points: " + result.total + "\n" +
+        "🎁 Reward Level Reached: " + milestone + "\n" +
+        "Next Goal: " + nextGoal;
+
+      let waURL =
+        "https://wa.me/" + WHATSAPP_NUMBER +
+        "?text=" + encodeURIComponent(msg);
+
+      setTimeout(()=>{
+        window.location.href = waURL;
+      },2000);
+    }
+  }
+
+  /* ✅ Auto Return Home After 5 Seconds */
+  setTimeout(()=>{
+    window.location.replace("https://ap095665-boop.github.io/japamala");
+  },5000);
+}
+  
   /* ✅ Final Congratulations Page */
   function showFinalPage() {
 
@@ -457,9 +669,8 @@
 
   // ✅ Redirect to Blogger Points Page
   setTimeout(() => {
-    window.location.replace(
-      "https://ap095665-boop.github.io/japamala/points.html");
-  }, 3000);
+  showPointsPopup();
+}, 3000);
 }
     
   
